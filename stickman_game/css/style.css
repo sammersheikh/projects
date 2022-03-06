@@ -1,0 +1,18 @@
+body {
+    background-color: slategray;
+    color: whitesmoke;
+}
+
+h1 {
+
+    display: flex;
+    justify-content: center;
+}
+
+div.gameBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    line-height: 600px;
+    border-style: dashed;
+}
