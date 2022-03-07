@@ -4,7 +4,6 @@ body {
 }
 
 h1 {
-
     display: flex;
     justify-content: center;
 }
@@ -13,6 +12,28 @@ div.gameBox {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    line-height: 600px;
+    line-height: 500px;
     border-style: dashed;
+    
+}
+
+div.stickman {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    display: flex;
+    justify-items: center;
+    position: absolute;
+}
+
+h6 {
+    color:slategray;
+}
+
+.word {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
 }
