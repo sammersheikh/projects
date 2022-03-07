@@ -10,9 +10,14 @@ const img8 = `<img src="https://i.postimg.cc/qBF41LdL/stickman8.png" alt="stickm
 const img9 = `<img src="https://i.postimg.cc/mgyrpHjg/stickman9.png" alt="stickman9"/>`
 const img10 = `<img src="https://i.postimg.cc/nhWT2m6s/stickman.png" alt="stickman"/>`
 
+
+const words = ['apple', 'matrix', 'subway', 'boggle', 'oxidize', 'ivy', 'zombie', 'pixel']
+
 /*----- app's state (variables) -----*/
+
 let guesses = null;
 let guessedWord = []
+
 /*----- cached element references -----*/
 
 
@@ -22,7 +27,7 @@ let guessedWord = []
 
 $('#generateBtn').on('click', function() {
     console.log('stick')
-    $('div.stickman').append(img10);
+    $('div.stickman').append(img1);
 })
 
 /*----- functions -----*/
@@ -31,4 +36,4 @@ $('#generateBtn').on('click', function() {
 // Generate random word function
 
 // Add image when guess is wrong
-// $('div.stickman').append(img1);
+// $('div.grid-item-2').append(img1); <-- How to display the stickman 
