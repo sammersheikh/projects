@@ -49,6 +49,7 @@ $('#input').keyup(function(event) {
 
 // Generate random word function
 function generateWord() {
+    $('#input').focus()
     $('#submitBtn').on('click', submitGuess);
     currentWord = words.pop(); 
     wordLength = currentWord.length
