@@ -11,12 +11,13 @@ const img9 = `<img src="https://i.postimg.cc/mgyrpHjg/stickman9.png" alt="stickm
 const img10 = `<img src="https://i.postimg.cc/nhWT2m6s/stickman.png" alt="stickman"/>`
 
 
-const words = ['apple', 'matrix', 'subway', 'boggle', 'oxidize', 'ivy', 'zombie', 'pixel']
-
+const words = ['apple', 'matrix', 'subway', 'boggle', 'oxidize', 'ivy', 'zombie', 'pixel'];
+const underscore = '_ ';
 /*----- app's state (variables) -----*/
 
-let guesses = null;
+let guesses, guessedLetter, currentWord, wordLength, blankWord, wins = null;
 let guessedWord = []
+let currentWordArr = []
 
 /*----- cached element references -----*/
 
@@ -24,16 +25,52 @@ let guessedWord = []
 /*----- event listeners -----*/
 
 // Generate button listener --> calls generate word function
+$('#generateBtn').on('click', generateWord);
 
-$('#generateBtn').on('click', function() {
-    console.log('stick')
-    $('div.stickman').append(img1);
-})
+// Submit button listener --> calls getInput function
+$('#submitBtn').on('click', getInput);
+
+
 
 /*----- functions -----*/
 
 
 // Generate random word function
 
+function generateWord() {
+    currentWord = words.pop(); 
+    wordLength = currentWord.length
+    blankWord = underscore.repeat(wordLength)
+    $('h1.underscore').html(blankWord)
+    separateCurrentWord()
+    separateBlankWord()
+}
+
+// Get input from user function (on event listener for submit button)
+
+function getInput() {
+    guessedLetter = $('#input').val();
+    $('#input').val('')
+}
+
+// separates the currentWord and blankWord strings into letters/underscores into separate arrays 
+let splitWord = null;
+function separateCurrentWord() {
+    splitWord = currentWord.split('');
+}
+
+let splitBlankWord = null;
+function separateBlankWord() {
+    splitBlankWord = blankWord.split(/[' ']/)
+    splitBlankWord.pop()
+}
+
+// Check if guessed letter is in splitWord (generated word that is split into letters in an array)
+// Will get called in the getInput() function
+function isLetterCorrect() {
+    
+}
+
+
 // Add image when guess is wrong
-// $('div.grid-item-2').append(img1); <-- How to display the stickman 
+// $('div.stickman').append(img1); <-- How to display the stickman 
