@@ -14,7 +14,7 @@ const imgArr = [
     `<img src="https://i.postimg.cc/nhWT2m6s/stickman.png" id="stickImg" alt="stickman"/>`,
 ]
 
-const words = ['apple', 'matrix', 'subway', 'boggle', 'oxidize', 'ivy', 'zombie', 'pixel'];
+const words = ['apple', 'matrix', 'subway', 'boggle', 'oxidize', 'ivy', 'zombie', 'pixel', 'stickman', 'monkey', 'corgi',];
 const underscore = '_ ';
 
 /*----- app's state (variables) -----*/
@@ -28,6 +28,7 @@ let currentWordArr = []
 
 /*----- cached element references -----*/
 
+$('#letters').hide()
 
 /*----- event listeners -----*/
 
@@ -35,14 +36,22 @@ let currentWordArr = []
 $('#generateBtn').on('click', generateWord);
 
 // Submit button listener --> calls getInput function
-$('#submitBtn').on('click', submitGuess);
+// $('#submitBtn').on('click', submitGuess);
+
 
 /*----- functions -----*/
 
-
+// Press enter to submit value in input field
+$('#input').keyup(function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        $('#submitBtn').click();
+    }
+});
 
 // Generate random word function
 function generateWord() {
+    $('#submitBtn').on('click', submitGuess);
     currentWord = words.pop(); 
     wordLength = currentWord.length
     blankWord = underscore.repeat(wordLength)
@@ -50,11 +59,13 @@ function generateWord() {
     separateCurrentWord()
     separateBlankWord()
     restartGame()
+    showLetters()
+    displayIntro()
 }
 
 // Get input from user function (on event listener for submit button)
 function submitGuess() {
-    guessedLetter = $('#input').val();
+    guessedLetter = $('#input').val().toLowerCase();
     $('#input').val('');
     isLetterCorrect();
     winLoss()
@@ -76,15 +87,15 @@ function isLetterCorrect() {
         return letter === guessedLetter;
     })
     if (indexOfLetter === -1) {
-        // alert('Wrong! Guess again.') // -------> Add better notification system
+        displayWrong()
         wrongGuesses++;
         if ($("div.stickman:has(img)").length > 0) {
             $('#stickImg').remove()
         }
         $('div.stickman').append(imgArr[wrongGuesses]);
-        $('#guessedLetters').append(`${guessedLetter}, `)
+        $('#guessedLetters').append(`${guessedLetter}    `)
     } else if (indexOfLetter !== -1) {
-        // alert('CORRECT!') // ---------------> Add better notification system
+        displayCorrect()
         splitBlankWord[indexOfLetter] = guessedLetter;
         const correctGuess = splitBlankWord.join(' ');
         $('h1.underscore').html(correctGuess);
@@ -94,26 +105,62 @@ function isLetterCorrect() {
 
 // Restart game function when generate word is clicked (clears the board)
 function restartGame() {
+    $('div.stickman h1').remove()
     $('#guessedLetters').text('');    
     if ($("div.stickman:has(img)").length > 0) {
     $('#stickImg').remove()
     }
     wrongGuesses = 0;
 }
-let correctGuess = null; //DELETE GLOBAL VARIABLE - - DECLARE IN FUNCTION BELOW
+
 // Win/Loss function (calls restartGame() if wrongGuesses > 9)
 function winLoss() {
-    correctGuess = splitBlankWord.find(function(char) {
+    const correctGuess = splitBlankWord.find(function(char) {
         return char === '_'
     })
     if (wrongGuesses > 9) {
+        $('#submitBtn').off('click', submitGuess);
         console.log('loser')
-        losses++ // ---------------> Not incrementing - returns NaN
-        $('#losses').html(losses) // ^
-        alert('You LOSE!')
+        losses++
+        $('#losses').html(losses)
+        $('div.stickman').append(`<h1 style="font-size: 100px;text-align:left;margin-left:20px">YOU LOSE!</h1>`)   
     } else if (!correctGuess) {
+        $('#submitBtn').off('click', submitGuess);
         console.log('winner')
         wins++
         $('#wins').html(wins)
+        $('div.stickman').append(`<h1 style="font-size: 100px;text-align:left;margin-left:20px">YOU WIN!</h1>`) 
     }
+}
+
+function showLetters() {
+    $('#letters').fadeIn(3800, function() {
+    })
+}
+
+function displayIntro() {
+    $('div.stickman').fadeIn(700, function() {
+        $('div.stickman').append(`<h1 id="intro" style="font-size: 70px;text-align:center">Guess a letter!</h1>`)
+        $('h1#intro').fadeOut(3000, function() {
+        })
+    })
+    
+}
+
+function displayCorrect() {
+    $('.grid-item-1').fadeIn(1000, function() {
+        $('.grid-item-1').append(`<h1 id="intro" style="font-size: 80px;text-align:center">Correct!</h1>`)
+        $('h1#intro').fadeOut(1000, function() {
+        })
+    })
+    
+}
+
+function displayWrong() {
+    $('.grid-item-1').fadeIn(1000, function() {
+        $('.grid-item-1').append(`<h1 id="intro" style="font-size: 80px;text-align:center">Wrong!</h1>`)
+        $('h1#intro').fadeOut(1000, function() {
+        })
+    })
+    
 }
