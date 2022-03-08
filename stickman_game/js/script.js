@@ -23,8 +23,6 @@ let guessedLetter, currentWord, wordLength, blankWord, indexOfLetter, splitWord,
 let wrongGuesses = 0;
 let wins = 0;
 let losses = 0;
-let guessedWord = []
-let currentWordArr = []
 
 /*----- cached element references -----*/
 
@@ -93,7 +91,7 @@ function isLetterCorrect() {
             $('#stickImg').remove()
         }
         $('div.stickman').append(imgArr[wrongGuesses]);
-        $('#guessedLetters').append(`${guessedLetter}    `)
+        $('#guessedLetters').append(`${guessedLetter}         `)
     } else if (indexOfLetter !== -1) {
         displayCorrect()
         splitBlankWord[indexOfLetter] = guessedLetter;
@@ -123,11 +121,15 @@ function winLoss() {
         console.log('loser')
         losses++
         $('#losses').html(losses)
+        const finalWord = splitWord.join(' ');
+        $('h1.underscore').html(finalWord);
         $('div.stickman').append(`<h1 style="font-size: 100px;text-align:left;margin-left:20px">YOU LOSE!</h1>`)   
     } else if (!correctGuess) {
         $('#submitBtn').off('click', submitGuess);
         console.log('winner')
         wins++
+        const finalWord = splitWord.join(' ');
+        $('h1.underscore').html(finalWord);
         $('#wins').html(wins)
         $('div.stickman').append(`<h1 style="font-size: 100px;text-align:left;margin-left:20px">YOU WIN!</h1>`) 
     }
