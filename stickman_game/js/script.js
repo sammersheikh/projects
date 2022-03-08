@@ -10,12 +10,27 @@ const img8 = `<img src="https://i.postimg.cc/qBF41LdL/stickman8.png" alt="stickm
 const img9 = `<img src="https://i.postimg.cc/mgyrpHjg/stickman9.png" alt="stickman9"/>`
 const img10 = `<img src="https://i.postimg.cc/nhWT2m6s/stickman.png" alt="stickman"/>`
 
+const imgArr = [
+    ``,
+    `<img src='https://i.postimg.cc/6QxQYhnS/stickman1.png' border='0' alt='stickman1'/>`,
+    `<img src='https://i.postimg.cc/C1FxVLvs/stickman2.png' border='0' alt='stickman2'/>`,
+    `<img src="https://i.postimg.cc/xCtTjDhD/stickman3.png" alt="stickman3"/>`,
+    `<img src="https://i.postimg.cc/C52hDCwc/stickman4.png" alt="stickman4"/>`,
+    `<img src="https://i.postimg.cc/wjLqysZk/stickman5.png" alt="stickman5"/>`,
+    `<img src="https://i.postimg.cc/Bv3qxnGf/stickman6.png" alt="stickman6"/>`,
+    `<img src="https://i.postimg.cc/k4XqpY4j/stickman7.png" alt="stickman7"/>`,
+    `<img src="https://i.postimg.cc/qBF41LdL/stickman8.png" alt="stickman8"/>`,
+    `<img src="https://i.postimg.cc/mgyrpHjg/stickman9.png" alt="stickman9"/>`,
+    `<img src="https://i.postimg.cc/nhWT2m6s/stickman.png" alt="stickman"/>`,
+]
+
 
 const words = ['apple', 'matrix', 'subway', 'boggle', 'oxidize', 'ivy', 'zombie', 'pixel'];
 const underscore = '_ ';
 /*----- app's state (variables) -----*/
 
-let guesses, guessedLetter, currentWord, wordLength, blankWord, wins = null;
+let guessedLetter, currentWord, wordLength, blankWord, wins, indexOfLetter = null;
+let wrongGuesses = 0;
 let guessedWord = []
 let currentWordArr = []
 
@@ -50,7 +65,8 @@ function generateWord() {
 
 function getInput() {
     guessedLetter = $('#input').val();
-    $('#input').val('')
+    $('#input').val('');
+    isLetterCorrect();
 }
 
 // separates the currentWord and blankWord strings into letters/underscores into separate arrays 
@@ -68,7 +84,18 @@ function separateBlankWord() {
 // Check if guessed letter is in splitWord (generated word that is split into letters in an array)
 // Will get called in the getInput() function
 function isLetterCorrect() {
-    
+    indexOfLetter = splitWord.findIndex(function(letter) {
+        return letter === guessedLetter;
+    })
+
+    if (indexOfLetter === -1) {
+        alert('Wrong! Guess again.')
+        wrongGuesses++;
+        $('div.stickman').append(imgArr[wrongGuesses]);
+    } else if (indexOfLetter !== -1) {
+        alert('CORRECT!')
+    }
+
 }
 
 
