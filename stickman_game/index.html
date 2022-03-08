@@ -28,7 +28,8 @@
         <div class="words">
             <h1 class="underscore">Click Generate Word</h1>
         </div>
-            <input type="text" id="input" placeholder="Enter letter" name="Guess!">
+            <input type="text" id="input" placeholder="Enter letter" maxlength = "1" onkeypress="return (event.charCode > 64 && 
+            event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" name="Guess!">
             <button id="submitBtn" class="button-28">Submit</button>
             <button id="generateBtn" class="button-28">Generate Word</button>
         </div>
