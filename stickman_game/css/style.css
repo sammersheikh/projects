@@ -17,7 +17,6 @@ body {
 
 .grid-item {
     border-style: dashed;
-
 }
 
 .grid-item-1 {
@@ -55,4 +54,16 @@ div.words {
     border-style: dotted;
     justify-content: center;
     align-self: center;
+}
+
+#divLetters {
+    display: flex;
+    flex-direction: row;
+    border-style: dotted;
+    justify-content: center;
+    align-self: center;
+}
+
+h2 {
+    text-align: left;
 }
