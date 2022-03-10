@@ -49,6 +49,31 @@ div.gamePiece {
     display: inline-block;
     box-shadow: 4px 4px 4px #4e3c3ca8;
 }
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    overflow: hidden;
+    z-index: 1;
+}
+
+td, th, .ff-fix {
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+}
+
+td:hover::after,
+.ff-fix:hover::after { 
+    background-color: rgba(225, 225, 216, 0.146);
+    content: '\00a0';  
+    height: 10000px;    
+    left: 0;
+    position: absolute;  
+    top: -5000px;
+    width: 100%;
+    z-index: -1;        
+}
+
 
 
 @media only screen and (max-width: 500px) {
