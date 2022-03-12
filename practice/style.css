@@ -1,0 +1,26 @@
+#wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: 200px;
+    grid-template-areas:
+      ". a a ."
+      ". a a .";
+  }
+div {
+    grid-area: a;
+    align-self: center;
+    justify-self: center;
+  }
+
+  h1 {
+      text-align: center;
+  }
+
+  input {
+      text-align: center;
+  }
+  
+h3 {
+    text-align: center;
+}
