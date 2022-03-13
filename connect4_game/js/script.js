@@ -74,13 +74,16 @@ function insertPiece() {
 */
 
 function findWinner() {
-    if (turns > 6) { // CHANGE TO 6 WHEN COMPLETE
-        for (let i = gameBoard.length - 1; i >= 0; i--) {
-            for (let j = 0; j < gameBoard[i].length; j++) {
-               if (gameBoard[i][j] === gameBoard[i][j + 1]) {
-                   if (gameBoard[i][j + 1] === gameBoard[i][j + 2]) {
-                       if (gameBoard[i][j + 2] === gameBoard[i][j + 3]) {
-                        console.log('4inarow')
+
+    //Find row winner
+    if (turns > 6) { // CHANGE TO 6 WHEN COMPLETE 
+        for (let i = gameBoard.length - 1; i >= 0; i--) {   // setting i to 1 less than the array length starts the array at last index, first. Iterates until reaches 0th index. Decrements down from last index to first index by 1
+            for (let j = 0; j < gameBoard[i].length; j++) { // Accessing nested array
+               if (gameBoard[i][j] === gameBoard[i][j + 1]) { // In the first iteration, j is set to the 0th index. So [j + 1] is the next index (index 1 in this iteration)
+                   if (gameBoard[i][j + 1] === gameBoard[i][j + 2]) { // To find equal values in a row, the last compared index must be compared to the next one and so on...
+                       if (gameBoard[i][j + 2] === gameBoard[i][j + 3]) { // ...until the indexes are done being compared
+                        console.log('4inarow')                            // This works because each iteration, j is set to one index higher to start from, so each index will be checked n in a row...
+                                                                          // ...because the value of j is incrementing per iteration while being compared and added successively 
                         }
                     }   
                 }
