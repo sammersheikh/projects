@@ -16,8 +16,10 @@ const player2 = -1;
 
 /*----- app's state (variables) -----*/
 
-let rowId, colId, selectedPiece = null;
+let rowId, colId, selectedPiece, turns = null;
 let playerTurn = -1;
+let accP1 = null;
+let accP2 = 0;
 
 /*----- cached element references -----*/
 
@@ -38,9 +40,15 @@ function selectColumn(evt) {
     rowId = tR.match(/\d+/)[0]
     colId = (evt.target.id).match(/\d+/)[0]  //.match(/\d+/)[0] //returns first occurence of numbers from a string
     playerTurn = (playerTurn * -1)
+    countTurns() 
+    insertPiece()
+    findWinner()
+} 
 
-    // check the first index of each row from highest index row to lowest. Set playerTurn to first
-    // empty index in column[0]
+
+// check the first index of each row from highest index row to lowest. Set playerTurn to first
+    // empty index in iterated row[colId]
+function insertPiece() {
     for (let i = gameBoard.length - 1; i >= 0; i--) {
         if (gameBoard[i][colId] !== 1 && gameBoard[i][colId] !== -1) {
             selectedPiece = gameBoard[i][colId]
@@ -57,10 +65,33 @@ function selectColumn(evt) {
             break;
         }
     }
+}
 
-} // end of selectColumn()
+/* findWinner():
+    1. Check each row for 4 (1's or -1's) or check if 4 indexes equal 4 or -4 by adding them up
+    2. Check each column
+    3. Check diagonals
+*/
 
+function findWinner() {
+    if (turns > 6) { // CHANGE TO 6 WHEN COMPLETE
+        for (let i = gameBoard.length - 1; i >= 0; i--) {
+            for (let j = 0; j < gameBoard[i].length; j++) {
+               if (gameBoard[i][j] === gameBoard[i][j + 1]) {
+                   if (gameBoard[i][j + 1] === gameBoard[i][j + 2]) {
+                       if (gameBoard[i][j + 2] === gameBoard[i][j + 3]) {
+                        console.log('4inarow')
+                        }
+                    }   
+                }
+            }
+        }
+    }
+}
 
+function countTurns() {
+    turns++
+}
 // let player1Spots = [];
 // let player2Spots = [];
 // check winner - if a player has 4 game pieces of the same color in a row
