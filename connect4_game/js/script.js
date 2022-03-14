@@ -67,14 +67,14 @@ function insertPiece() {
     }
 }
 
-/* findWinner():
+/* to find winner:
     1. Check each row for 4 (1's or -1's) or check if 4 indexes equal 4 or -4 by adding them up
     2. Check each column
     3. Check diagonals
 */
 
 function findWinner() {
-
+ 
     //Find row winner
     if (turns > 6) { // CHANGE TO 6 WHEN COMPLETE 
         for (let i = gameBoard.length - 1; i >= 0; i--) {   // setting i to 1 less than the array length starts the array at last index, first. Iterates until reaches 0th index. Decrements down from last index to first index by 1
@@ -87,6 +87,18 @@ function findWinner() {
                         }
                     }   
                 }
+            }
+        }
+    } // Add if statement that stops loop from checking indexes to the right that do not exist
+    for (let i = gameBoard.length - 1; i >= 0; i--) {   // setting i to 1 less than the array length starts the array at last index, first. Iterates until reaches 0th index. Decrements down from last index to first index by 1
+        for (let j = 0; j < gameBoard[i].length; j++) { // Accessing nested array
+           if (gameBoard[i][j] === gameBoard[i - 1][j]) { // In the first iteration, j is set to the 0th index. So [j + 1] is the next index (index 1 in this iteration)
+               if (gameBoard[i - 1][j] === gameBoard[i - 2][j]) { // To find equal values in a row, the last compared index must be compared to the next one and so on...
+                   if (gameBoard[i - 2][j] === gameBoard[i - 3][j]) { // ...until the indexes are done being compared
+                    console.log('COLUMNWIN' + i + j)                            // This works because each iteration, j is set to one index higher to start from, so each index will be checked n in a row...
+                                                                      // ...because the value of j is incrementing per iteration while being compared and added successively 
+                    }
+                }   
             }
         }
     }
