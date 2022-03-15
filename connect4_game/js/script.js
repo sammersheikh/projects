@@ -23,6 +23,7 @@ let accP2 = 0;
 
 /*----- cached element references -----*/
 
+$('#startBtn').hide()
 
 /*----- event listeners -----*/
 
