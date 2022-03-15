@@ -75,30 +75,55 @@ function insertPiece() {
 
 function findWinner() {
  
-    //Find row winner
+    // Find Row winner
     if (turns > 6) { // CHANGE TO 6 WHEN COMPLETE 
         for (let i = gameBoard.length - 1; i >= 0; i--) {   // setting i to 1 less than the array length starts the array at last index, first. Iterates until reaches 0th index. Decrements down from last index to first index by 1
-            for (let j = 0; j < gameBoard[i].length; j++) { // Accessing nested array
+            for (let j = 0; j < 5; j++) { // Accessing nested array
                if (gameBoard[i][j] === gameBoard[i][j + 1]) { // In the first iteration, j is set to the 0th index. So [j + 1] is the next index (index 1 in this iteration)
                    if (gameBoard[i][j + 1] === gameBoard[i][j + 2]) { // To find equal values in a row, the last compared index must be compared to the next one and so on...
                        if (gameBoard[i][j + 2] === gameBoard[i][j + 3]) { // ...until the indexes are done being compared
-                        console.log('4inarow')                            // This works because each iteration, j is set to one index higher to start from, so each index will be checked n in a row...
+                        console.log('ROW WIN')                            // This works because each iteration, j is set to one index higher to start from, so each index will be checked n in a row...
                                                                           // ...because the value of j is incrementing per iteration while being compared and added successively 
                         }
                     }   
                 }
             }
         }
-    } // Add if statement that stops loop from checking indexes to the right that do not exist
-    for (let i = gameBoard.length - 1; i >= 0; i--) {   // setting i to 1 less than the array length starts the array at last index, first. Iterates until reaches 0th index. Decrements down from last index to first index by 1
+    }
+    // Find Column winner                                                
+    for (let i = gameBoard.length - 1; i >= 3; i--) {   // setting i to 1 less than the array length starts the array at last index, first. Iterates until reaches 0th index. Decrements down from last index to first index by 1
         for (let j = 0; j < gameBoard[i].length; j++) { // Accessing nested array
-           if (gameBoard[i][j] === gameBoard[i - 1][j]) { // In the first iteration, j is set to the 0th index. So [j + 1] is the next index (index 1 in this iteration)
-               if (gameBoard[i - 1][j] === gameBoard[i - 2][j]) { // To find equal values in a row, the last compared index must be compared to the next one and so on...
+           if (gameBoard[i][j] === gameBoard[i - 1][j]) { // In the first iteration, i is set to the 0th index. So [i - 1] is the row index directly above
+               if (gameBoard[i - 1][j] === gameBoard[i - 2][j]) { // To find equal values in a column, the last compared index must be compared to the next one above...
                    if (gameBoard[i - 2][j] === gameBoard[i - 3][j]) { // ...until the indexes are done being compared
-                    console.log('COLUMNWIN' + i + j)                            // This works because each iteration, j is set to one index higher to start from, so each index will be checked n in a row...
-                                                                      // ...because the value of j is incrementing per iteration while being compared and added successively 
+                    console.log('COLUMN WIN' + i + j)                            // This works because each iteration, i is set to one index lower to start from, so each index will be checked n in a column...
+                                                                      // ...because the value of i is incrementing per iteration while being compared and subtracted successively 
                     }
                 }   
+            }
+        }
+    }
+    // Find Diagonal-right winner
+    for (let i = gameBoard.length - 1; i >= 3; i--) {
+        for (let j = 0; j < 5; j++) {
+            if (gameBoard[i][j] === gameBoard[i - 1][j + 1]) {
+                if (gameBoard[i - 1][j + 1] === gameBoard[i - 2][j + 2]) {
+                    if (gameBoard[i - 2][j + 2] === gameBoard[i - 3][j + 3]) {
+                        console.log('DIAGONAL-RIGHT WIN')
+                    }
+                }
+            }
+        }
+    }
+    // Find Diagonal-left winner
+    for (let i = gameBoard.length - 1; i >= 3; i--) {
+        for (j = gameBoard[i].length - 1; j >= 2; j--) {
+            if (gameBoard[i][j] === gameBoard[i - 1][j - 1]) {
+                if (gameBoard[i - 1][j - 1] === gameBoard[i - 2][j - 2]) {
+                    if (gameBoard[i - 2][j - 2] === gameBoard[i - 3][j - 3]) {
+                        console.log('DIAGONAL-LEFT WIN')
+                    }
+                }
             }
         }
     }
@@ -126,3 +151,4 @@ Possible ways to check win:
 3. When a game piece is selected, check surrounding indexes for same result 3 times in each direction
 // Adding 4 indexes together, if they equal 4, then player 1 wins else if they equal -4 then player 2 wins
 // Using the html rows, i can check for the bgColor to check each row for */
+
